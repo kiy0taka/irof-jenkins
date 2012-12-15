@@ -1,0 +1,43 @@
+buildscript {
+    repositories {
+        maven {
+            name 'jenkins'
+            delegate.url('http://maven.jenkins-ci.org/content/repositories/releases/')
+        }
+        mavenCentral()
+        mavenLocal()
+    }
+    dependencies {
+        classpath 'org.jenkins-ci.tools:gradle-jpi-plugin:0.5.0-SNAPSHOT'
+    }
+}
+
+apply plugin: 'jpi'
+apply plugin: 'idea'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    groovy 'org.codehaus.groovy:groovy-all:1.8.6'
+    compile 'org.twitter4j:twitter4j-stream:3.0.0'
+    testCompile 'org.spockframework:spock-core:0.6-groovy-1.8'
+    jenkinsTest 'org.jenkins-ci.plugins:ant:1.1@jar',
+                'org.jenkins-ci.plugins:javadoc:1.0@jar'
+}
+
+group = 'org.jenkins-ci.plugins'
+version = '0.0.1-SNAPSHOT'
+description = 'This plugin provides irof trigger.'
+
+jenkinsPlugin {
+    coreVersion = '1.475'
+    displayName = 'Jenkins Irof plugin.'
+    url = 'http://d.hatena.ne.jp/kiy0taka/20121215/1355568984'
+    gitHubUrl = 'https://github.com/kiy0taka/irof-jenkins'
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.2'
+}
